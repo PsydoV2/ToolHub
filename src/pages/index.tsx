@@ -25,7 +25,6 @@ export default function Home() {
             toolLink="/uuid"
             toolIconUrl="/ToolIcons/uuid.svg"
             toolImageUrl="/ToolHeaders/uuid.png"
-            isWorkInProgress
           ></ToolItem>
         </div>
       </main>
