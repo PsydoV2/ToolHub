@@ -15,15 +15,14 @@ export default function Home() {
           <ToolItem
             toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
             toolName="Passwordgenerator"
-            toolLink="/tools/passwordgenerator"
+            toolLink="/password"
             toolIconUrl="/ToolIcons/password.svg"
             toolImageUrl="/ToolHeaders/password.png"
-            isWorkInProgress
           ></ToolItem>
           <ToolItem
-            toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
+            toolDescription="Instantly generate RFC 4122 UUIDs — copy-ready, offline."
             toolName="UUID Generator"
-            toolLink="/tools/passwordgenerator"
+            toolLink="/uuid"
             toolIconUrl="/ToolIcons/uuid.svg"
             toolImageUrl="/ToolHeaders/uuid.png"
             isWorkInProgress

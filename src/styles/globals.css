@@ -167,6 +167,10 @@ a {
   font-style: normal;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* ----------------------------------------- */
 
 nav {
@@ -188,7 +192,13 @@ nav a {
   align-items: center;
   gap: 0.5rem;
 
+  width: 100px;
+
   color: var(--background-500);
+}
+
+nav div {
+  width: 100px;
 }
 
 nav a:hover {
@@ -207,6 +217,25 @@ nav h1 {
   text-decoration-style: wavy;
   text-underline-offset: 0.5rem;
   text-decoration-thickness: 0.2rem;
+}
+
+nav button {
+  border: none;
+  background-color: var(--accent-100);
+  color: var(--accent-500);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background-color: var(--accent-200);
+  color: var(--accent-600);
 }
 
 /* ----------------------------------------- */
@@ -292,6 +321,7 @@ nav h1 {
   bottom: 10px;
   right: 10px;
   border: none;
+  background-color: transparent;
 }
 
 .toolItemContent a {
