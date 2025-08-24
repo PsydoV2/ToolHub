@@ -171,12 +171,13 @@ a {
 
 nav {
   width: 100%;
-  height: 60px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   padding: 0px 20px;
+  margin-bottom: 2rem;
 
   color: var(--text-900);
 }
@@ -201,6 +202,11 @@ nav h1 {
   font-family: "Comic Relief", system-ui;
   font-weight: 700;
   font-style: normal;
+
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-underline-offset: 0.5rem;
+  text-decoration-thickness: 0.2rem;
 }
 
 /* ----------------------------------------- */
@@ -213,6 +219,119 @@ nav h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
+}
+
+/* ----------------------------------------- */
+
+.toolItem {
+  width: 300px;
+  height: 300px;
+  outline: 2px solid var(--text-200);
+  border-radius: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  position: relative;
+}
+
+.toolImageHeader {
+  background-color: red;
+  height: 30%;
+}
+
+.toolImageHeader img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.toolItemContent {
+  height: 70%;
+  position: relative;
+  color: var(--text-950);
+
+  padding: 30px 10px 10px 10px;
+}
+
+.toolItemContent img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  background-color: var(--background-50);
+  border-radius: 50%;
+  border: none;
+  padding: 5px;
+  position: absolute;
+  top: -25px;
+  left: 20px;
+}
+
+.toolItemContent h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-family: "Comic Relief", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.toolItemContent p {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  margin-bottom: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.toolItemContent button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: none;
+}
+
+.toolItemContent a {
+  padding: 10px 20px;
+  background-color: var(--accent-500);
+  color: var(--text-50);
+  border-radius: 0.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toolItemSoon {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  font-family: "Comic Relief", system-ui;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.5rem;
+  color: var(--text-50);
+
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.toolItemSoon svg {
+  width: 80px;
+  height: 80px;
+  color: var(--primary-500);
 }
