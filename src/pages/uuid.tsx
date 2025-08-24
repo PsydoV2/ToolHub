@@ -11,12 +11,14 @@ type Options = {
 
 function uuidv4(): string {
   // Bevorzugt: native crypto.randomUUID (Browser/Node modern)
+  // typed, no-any, SSR-safe
   if (
-    typeof crypto !== "undefined" &&
-    typeof (crypto as any).randomUUID === "function"
+    typeof globalThis.crypto !== "undefined" &&
+    "randomUUID" in globalThis.crypto
   ) {
-    return (crypto as any).randomUUID();
+    return (globalThis.crypto as Crypto).randomUUID();
   }
+
   // Fallback: RFC4122 v4 mit (krypto-)Zufall
   const bytes = new Uint8Array(16);
   if (
