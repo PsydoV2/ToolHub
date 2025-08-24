@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaMoon, FaSun } from "react-icons/fa6";
 import { motion } from "framer-motion";
@@ -12,9 +12,11 @@ interface NavbarProps {
 }
 
 export default function Navbar(props: NavbarProps) {
-  const [isDarkMode, setIsDarkMode] = useState(
-    document.documentElement.dataset.theme == "dark"
-  );
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    setIsDarkMode(document.documentElement.dataset.theme === "dark");
+  }, []);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
