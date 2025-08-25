@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
+import { FaArrowsRotate, FaCopy } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 type Options = {
   uppercase: boolean;
@@ -69,6 +71,12 @@ export default function UUIDPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    // Neu generieren, wenn sich Optionen ändern
+    generate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [opts]);
+
   async function copyAll() {
     try {
       await navigator.clipboard.writeText(uuids.join("\n"));
@@ -90,103 +98,84 @@ export default function UUIDPage() {
       <main>
         <Navbar isSubPage title="UUID" />
 
-        <section className="wrap">
-          <div className="card">
-            <header className="cardHeader">
-              <h1>UUID Generator (v4)</h1>
-              <p className="muted">
-                Generate copy-ready UUIDs. Options apply to each generated
-                value.
-              </p>
-            </header>
+        <div className="uuidCard">
+          <textarea
+            className="box"
+            rows={Math.min(10, Math.max(3, uuids.length || 1))}
+            readOnly
+            value={uuids.join("\n")}
+            placeholder="Your UUID will appear here…"
+          />
 
-            <div className="output">
-              <textarea
-                className="box"
-                rows={Math.min(10, Math.max(3, uuids.length || 1))}
-                readOnly
-                value={uuids.join("\n")}
-                placeholder="Your UUID will appear here…"
+          <div className="actionRow">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              onClick={generate}
+            >
+              <FaArrowsRotate />
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              onClick={copyAll}
+              disabled={!uuids.length}
+            >
+              <FaCopy />
+            </motion.button>
+
+            <div className="countRow">
+              <input
+                type="range"
+                min={1}
+                max={50}
+                value={opts.count}
+                onChange={(e) =>
+                  setOpts((o) => ({ ...o, count: Number(e.target.value) }))
+                }
               />
-              <div className="actions">
-                <button className="btn" onClick={generate}>
-                  Generate
-                </button>
-                <button
-                  className="btn secondary"
-                  onClick={copyAll}
-                  disabled={!uuids.length}
-                >
-                  Copy all
-                </button>
-              </div>
-            </div>
-
-            <div className="grid">
-              <label className="ctrl check">
-                <input
-                  type="checkbox"
-                  checked={opts.uppercase}
-                  onChange={(e) =>
-                    setOpts((o) => ({ ...o, uppercase: e.target.checked }))
-                  }
-                />
-                <span>Uppercase</span>
-              </label>
-
-              <label className="ctrl check">
-                <input
-                  type="checkbox"
-                  checked={opts.noHyphen}
-                  onChange={(e) =>
-                    setOpts((o) => ({ ...o, noHyphen: e.target.checked }))
-                  }
-                />
-                <span>Remove hyphens</span>
-              </label>
-
-              <label className="ctrl check">
-                <input
-                  type="checkbox"
-                  checked={opts.braces}
-                  onChange={(e) =>
-                    setOpts((o) => ({ ...o, braces: e.target.checked }))
-                  }
-                />
-                <span>Curly braces</span>
-              </label>
-
-              <label className="ctrl">
-                <span>Count</span>
-                <div className="countRow">
-                  <input
-                    type="range"
-                    min={1}
-                    max={50}
-                    value={opts.count}
-                    onChange={(e) =>
-                      setOpts((o) => ({ ...o, count: Number(e.target.value) }))
-                    }
-                  />
-                  <input
-                    className="num"
-                    type="number"
-                    min={1}
-                    max={50}
-                    value={opts.count}
-                    onChange={(e) => {
-                      const v = Math.min(
-                        50,
-                        Math.max(1, Number(e.target.value || 0))
-                      );
-                      setOpts((o) => ({ ...o, count: v }));
-                    }}
-                  />
-                </div>
-              </label>
+              <span>{opts.count}</span>
             </div>
           </div>
-        </section>
+
+          <div className="optionsGrid">
+            <label className="option">
+              <input
+                type="checkbox"
+                checked={opts.uppercase}
+                onChange={(e) =>
+                  setOpts((o) => ({ ...o, uppercase: e.target.checked }))
+                }
+              />
+              <span>Uppercase</span>
+            </label>
+
+            <label className="option">
+              <input
+                type="checkbox"
+                checked={opts.noHyphen}
+                onChange={(e) =>
+                  setOpts((o) => ({ ...o, noHyphen: e.target.checked }))
+                }
+              />
+              <span>Remove hyphens</span>
+            </label>
+
+            <label className="option">
+              <input
+                type="checkbox"
+                checked={opts.braces}
+                onChange={(e) =>
+                  setOpts((o) => ({ ...o, braces: e.target.checked }))
+                }
+              />
+              <span>Curly braces</span>
+            </label>
+          </div>
+        </div>
       </main>
     </>
   );

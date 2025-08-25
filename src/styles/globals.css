@@ -519,115 +519,115 @@ nav button:hover {
 }
 
 .passwordCard .option span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.2rem;
-  color: var(--text-800);
 }
 
 /* ----------------------------------------- */
 
-.wrap {
-  display: grid;
-  place-items: start center;
-  padding: 2rem 1rem 4rem;
-}
-.card {
+.uuidCard {
   width: 100%;
-  max-width: 720px;
-  background: #0b1220;
-  border: 1px solid #1b2742;
-  border-radius: 16px;
+  max-width: 600px;
   padding: 1.25rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  color: #e7eff6;
-}
-.cardHeader h1 {
-  margin: 0 0 0.25rem;
-  font-size: 1.4rem;
-  line-height: 1.2;
-}
-.muted {
-  margin: 0;
-  color: #a4b1c9;
-  font-size: 0.9rem;
+  color: var(--text-900);
+  margin: auto;
 }
 
-.output {
-  display: grid;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-.box {
+.uuidCard textarea {
   width: 100%;
-  padding: 0.9rem 1rem;
-  border-radius: 12px;
-  border: 1px solid #24304c;
-  background: #0e182b;
-  color: #e7eff6;
-  font: 600 1rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  resize: vertical;
-}
-.actions {
-  display: grid;
-  grid-auto-flow: column;
-  gap: 0.5rem;
-  justify-content: start;
-}
-.btn {
-  padding: 0.7rem 0.9rem;
-  border-radius: 12px;
-  border: 1px solid #2b3b61;
-  background: #13203a;
-  color: #e7eff6;
-  font-weight: 600;
-  cursor: pointer;
-}
-.btn:hover {
-  background: #172647;
-}
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-.btn.secondary {
-  background: #0f1a31;
+  height: 150px;
+  resize: none;
+  border: none;
+  background-color: var(--background-200);
+  color: var(--text-950);
+  font: 600 1.05rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 0.75rem 1rem;
+.uuidCard .actionRow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
-.ctrl {
-  display: grid;
-  gap: 0.45rem;
+
+.uuidCard .actionRow button {
+  padding: 0.7rem 0.9rem;
+  border: none;
+  background: transparent;
+  color: var(--text-950);
+  background-color: var(--background-200);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+}
+
+.uuidCard .actionRow .countRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.uuidCard .actionRow .countRow input[type="range"] {
+  /* -webkit-appearance: none; */
+  width: 100%;
+  height: 8px;
+  border-radius: 100%;
+  background: var(--background-200);
+  cursor: pointer;
+  accent-color: var(--accent-500);
+  border: none;
+}
+
+.uuidCard .actionRow .countRow span {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: var(--background-200);
+  color: var(--text-950);
+  font: 600 1.05rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.uuidCard .optionsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.uuidCard .optionsGrid .option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.95rem;
 }
-.check {
-  grid-auto-flow: column;
-  grid-template-columns: 24px 1fr;
-  align-items: center;
-}
-.countRow {
-  display: grid;
-  grid-template-columns: 1fr 70px;
-  gap: 0.6rem;
-  align-items: center;
-}
-.num {
-  width: 100%;
-  padding: 0.5rem 0.6rem;
-  border-radius: 10px;
-  border: 1px solid #24304c;
-  background: #0e182b;
-  color: #e7eff6;
-  font-weight: 600;
-  text-align: center;
+
+.uuidCard .optionsGrid .option input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--accent-500);
 }
 
-@media (max-width: 520px) {
-  .actions {
-    grid-auto-flow: row;
-    grid-template-columns: 1fr 1fr;
-  }
+.uuidCard .optionsGrid .option span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
 }
