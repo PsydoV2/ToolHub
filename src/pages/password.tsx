@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
+import { FaArrowsRotate, FaCopy } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const LOWER = "abcdefghijklmnopqrstuvwxyz";
 const UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const NUMS = "0123456789";
-// Bewusst „sichere“ Sonderzeichen: keine Quotes, Slash/Backslash, Klammern, <>, Pipes etc.
 const SAFE_SYMBOLS = "!@#$%^*_+-=?";
 
 type Options = {
@@ -104,6 +105,12 @@ export default function Password() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    // Neu generieren, wenn sich Optionen ändern
+    regen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [opts]);
+
   const strength = useMemo(() => estimateStrength(pw), [pw]);
 
   async function copyPw() {
@@ -128,124 +135,102 @@ export default function Password() {
       </Head>
 
       <main>
-        <Navbar isSubPage title="ToolHub" />
+        <Navbar isSubPage title="Password" />
 
-        <section className="wrap">
-          <div className="card">
-            <header className="cardHeader">
-              <h1>Password Generator</h1>
-              <p className="muted">
-                Uses only “safe” symbols: <code>{SAFE_SYMBOLS}</code>
-              </p>
-            </header>
-
-            <div className="outputRow">
-              <input
-                className="passwordField"
-                type="text"
-                readOnly
-                value={pw}
-                placeholder="Your password…"
-              />
-              <div className="btnRow">
-                <button className="btn" onClick={regen} disabled={!anySelected}>
-                  Regenerate
-                </button>
-                <button
-                  className="btn secondary"
-                  onClick={copyPw}
-                  disabled={!pw}
-                >
-                  Copy
-                </button>
-              </div>
-            </div>
-
-            <div className="strength">
-              <div className={`bar s${strength.score}`} />
-              <span className="label">{strength.label}</span>
-            </div>
-
-            <div className="grid">
-              <label className="control">
-                <span>Length</span>
-                <div className="lengthRow">
-                  <input
-                    type="range"
-                    min={8}
-                    max={64}
-                    value={opts.length}
-                    onChange={(e) =>
-                      setOpts((o) => ({ ...o, length: Number(e.target.value) }))
-                    }
-                  />
-                  <input
-                    className="lenInput"
-                    type="number"
-                    min={8}
-                    max={64}
-                    value={opts.length}
-                    onChange={(e) => {
-                      const v = Math.max(
-                        8,
-                        Math.min(64, Number(e.target.value || 0))
-                      );
-                      setOpts((o) => ({ ...o, length: v }));
-                    }}
-                  />
-                </div>
-              </label>
-
-              <label className="control check">
-                <input
-                  type="checkbox"
-                  checked={opts.lower}
-                  onChange={(e) =>
-                    setOpts((o) => ({ ...o, lower: e.target.checked }))
-                  }
-                />
-                <span>Lowercase (a–z)</span>
-              </label>
-
-              <label className="control check">
-                <input
-                  type="checkbox"
-                  checked={opts.upper}
-                  onChange={(e) =>
-                    setOpts((o) => ({ ...o, upper: e.target.checked }))
-                  }
-                />
-                <span>Uppercase (A–Z)</span>
-              </label>
-
-              <label className="control check">
-                <input
-                  type="checkbox"
-                  checked={opts.nums}
-                  onChange={(e) =>
-                    setOpts((o) => ({ ...o, nums: e.target.checked }))
-                  }
-                />
-                <span>Numbers (0–9)</span>
-              </label>
-
-              <label className="control check">
-                <input
-                  type="checkbox"
-                  checked={opts.syms}
-                  onChange={(e) =>
-                    setOpts((o) => ({ ...o, syms: e.target.checked }))
-                  }
-                />
-                <span>Symbols ({SAFE_SYMBOLS})</span>
-              </label>
-            </div>
-
-            {!anySelected && (
-              <p className="warn">Select at least one character type.</p>
-            )}
+        <div className="passwordCard">
+          <div className="outputRow">
+            <input
+              className="passwordField"
+              type="text"
+              readOnly
+              value={pw}
+              placeholder="Your password…"
+            />
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              onClick={regen}
+              disabled={!anySelected}
+            >
+              <FaArrowsRotate />
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              onClick={copyPw}
+              disabled={!pw}
+            >
+              <FaCopy />
+            </motion.button>
           </div>
-        </section>
+
+          <div className={`bar s${strength.score}`} />
+
+          <div className="lengthRow">
+            <input
+              type="range"
+              min={2}
+              max={50}
+              value={opts.length}
+              onChange={(e) =>
+                setOpts((o) => ({ ...o, length: Number(e.target.value) }))
+              }
+            />
+            <span>{opts.length}</span>
+          </div>
+
+          <div className="optionsGrid">
+            <label className="option">
+              <input
+                type="checkbox"
+                checked={opts.lower}
+                onChange={(e) =>
+                  setOpts((o) => ({ ...o, lower: e.target.checked }))
+                }
+              />
+              <span>Lowercase (a–z)</span>
+            </label>
+
+            <label className="option">
+              <input
+                type="checkbox"
+                checked={opts.upper}
+                onChange={(e) =>
+                  setOpts((o) => ({ ...o, upper: e.target.checked }))
+                }
+              />
+              <span>Uppercase (A–Z)</span>
+            </label>
+
+            <label className="option">
+              <input
+                type="checkbox"
+                checked={opts.nums}
+                onChange={(e) =>
+                  setOpts((o) => ({ ...o, nums: e.target.checked }))
+                }
+              />
+              <span>Numbers (0–9)</span>
+            </label>
+
+            <label className="option">
+              <input
+                type="checkbox"
+                checked={opts.syms}
+                onChange={(e) =>
+                  setOpts((o) => ({ ...o, syms: e.target.checked }))
+                }
+              />
+              <span>Symbols ({SAFE_SYMBOLS})</span>
+            </label>
+          </div>
+
+          {!anySelected && (
+            <p className="warn">Select at least one character type.</p>
+          )}
+        </div>
       </main>
     </>
   );
