@@ -13,6 +13,7 @@ interface ToolItemProps {
   toolIconUrl: string;
   toolLink: string;
   isWorkInProgress?: boolean;
+  isNew?: boolean;
 }
 
 export default function ToolItem(props: ToolItemProps) {
@@ -24,6 +25,7 @@ export default function ToolItem(props: ToolItemProps) {
           Coming soon
         </div>
       )}
+      {props.isNew && <div className="toolItemNew">NEW!</div>}
       <div className="toolImageHeader">
         <Image
           width={200}

@@ -25,6 +25,15 @@ export default function Home() {
             toolLink="/uuid"
             toolIconUrl="/ToolIcons/uuid.svg"
             toolImageUrl="/ToolHeaders/uuid.png"
+            isNew
+          ></ToolItem>
+          <ToolItem
+            toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
+            toolName="PNG to PDF"
+            toolLink="/pngtopdf"
+            toolIconUrl="/ToolIcons/pngtopdf.svg"
+            toolImageUrl="/ToolHeaders/pngtopdf.png"
+            isWorkInProgress
           ></ToolItem>
         </div>
       </main>
