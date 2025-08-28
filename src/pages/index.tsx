@@ -27,11 +27,11 @@ export default function Home() {
             toolImageUrl="/ToolHeaders/uuid.png"
           ></ToolItem>
           <ToolItem
-            toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
+            toolDescription="Diff Checker is a fast, privacy-friendly tool to compare two texts and instantly highlight additions and deletions with word-level diffs."
             toolName="Diff Checker"
             toolLink="/diffChecker"
             toolIconUrl="/ToolIcons/diffChecker.svg"
-            toolImageUrl="/ToolHeaders/pngtopdf.png"
+            toolImageUrl=""
             isNew
           ></ToolItem>
           <ToolItem

@@ -27,12 +27,14 @@ export default function ToolItem(props: ToolItemProps) {
       )}
       {props.isNew && <div className="toolItemNew">NEW!</div>}
       <div className="toolImageHeader">
-        <Image
-          width={200}
-          height={100}
-          src={props.toolImageUrl}
-          alt="Tool Header Image"
-        ></Image>
+        {props.toolImageUrl && (
+          <Image
+            width={200}
+            height={100}
+            src={props.toolImageUrl}
+            alt="Tool Header Image"
+          ></Image>
+        )}
       </div>
       <div className="toolItemContent">
         <Image
