@@ -650,6 +650,8 @@ nav button:hover {
   display: flex;
   gap: 1rem;
   width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .diffCheckerWrap .inputs textarea {
@@ -662,6 +664,8 @@ nav button:hover {
   font: 600 1.05rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   padding: 1rem;
   border-radius: 1rem;
+  max-width: calc(50% - 0.5rem);
+  min-width: 300px;
 }
 
 .diffCheckerWrap .actions {
