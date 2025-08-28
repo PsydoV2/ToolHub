@@ -1,94 +1,125 @@
-import { useMemo, useState } from "react";
-import Navbar from "@/components/Navbar";
 import Head from "next/head";
+import React, { ReactNode, useMemo, useState } from "react";
+import Navbar from "@/components/Navbar";
+import { FaArrowRightArrowLeft, FaEraser } from "react-icons/fa6";
 
-type Op = { type: "equal" | "add" | "remove"; text: string };
+type OpType = "equal" | "add" | "remove";
+type Op = { type: OpType; tokens: string[] };
 
-function tokenize(input: string): string[] {
-  // Wörter, Whitespaces und Satzzeichen getrennt
-  return input.match(/\w+|\s+|[^\s\w]/g) ?? [];
+// --- Utilities -------------------------------------------------------------
+
+function tokenizeWords(s: string): string[] {
+  const text = (s ?? "").trim();
+  if (!text) return [];
+  return text
+    .replace(/(\r\n|\r|\n)/g, " \n ")
+    .split(/(\s+|[.,;:!?()"'`´„“”\[\]{}<>])/)
+    .filter((t) => t && !/^\s+$/.test(t));
 }
 
-function diffTokens(a: string, b: string): Op[] {
-  const A = tokenize(a);
-  const B = tokenize(b);
-  const m = A.length,
-    n = B.length;
-
-  // LCS-DP
-  const dp: number[][] = Array.from({ length: m + 1 }, () =>
-    Array(n + 1).fill(0)
+function lcsDiff(a: string[], b: string[]): Op[] {
+  const n = a.length;
+  const m = b.length;
+  const dp: number[][] = Array.from({ length: n + 1 }, () =>
+    new Array(m + 1).fill(0)
   );
-  for (let i = 1; i <= m; i++) {
-    for (let j = 1; j <= n; j++) {
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= m; j++) {
       dp[i][j] =
-        A[i - 1] === B[j - 1]
+        a[i - 1] === b[j - 1]
           ? dp[i - 1][j - 1] + 1
           : Math.max(dp[i - 1][j], dp[i][j - 1]);
     }
   }
 
-  // Traceback
-  const ops: Op[] = [];
-  let i = m,
-    j = n;
+  const opsRev: { type: OpType; token: string }[] = [];
+  let i = n,
+    j = m;
   while (i > 0 && j > 0) {
-    if (A[i - 1] === B[j - 1]) {
-      ops.push({ type: "equal", text: A[i - 1] });
+    if (a[i - 1] === b[j - 1]) {
+      opsRev.push({ type: "equal", token: a[i - 1] });
       i--;
       j--;
     } else if (dp[i - 1][j] >= dp[i][j - 1]) {
-      ops.push({ type: "remove", text: A[i - 1] });
+      opsRev.push({ type: "remove", token: a[i - 1] });
       i--;
     } else {
-      ops.push({ type: "add", text: B[j - 1] });
+      opsRev.push({ type: "add", token: b[j - 1] });
       j--;
     }
   }
-  while (i-- > 0) ops.push({ type: "remove", text: A[i + 1] });
-  while (j-- > 0) ops.push({ type: "add", text: B[j + 1] });
-
-  ops.reverse();
-
-  // gleichartige Nachbarn zusammenfassen
-  const merged: Op[] = [];
-  for (const o of ops) {
-    const last = merged[merged.length - 1];
-    if (last && last.type === o.type) last.text += o.text;
-    else merged.push({ ...o });
+  while (i > 0) {
+    opsRev.push({ type: "remove", token: a[i - 1] });
+    i--;
   }
-  return merged;
+  while (j > 0) {
+    opsRev.push({ type: "add", token: b[j - 1] });
+    j--;
+  }
+
+  const ops: Op[] = [];
+  for (const { type, token } of opsRev.reverse()) {
+    const last = ops[ops.length - 1];
+    if (last && last.type === type) last.tokens.push(token);
+    else ops.push({ type, tokens: [token] });
+  }
+  return ops;
 }
 
+function renderWithBreaks(text: string) {
+  const parts = text.split("\n");
+  const out: (string | ReactNode)[] = [];
+  parts.forEach((p, idx) => {
+    out.push(p);
+    if (idx < parts.length - 1) out.push(<br key={`br-${idx}`} />);
+  });
+  return out;
+}
+
+// --- Component -------------------------------------------------------------
+
 export default function DiffChecker() {
-  const [oldText, setOldText] = useState("");
-  const [newText, setNewText] = useState("");
+  const [left, setLeft] = useState<string>("");
+  const [right, setRight] = useState<string>("");
 
-  const ops = useMemo(() => diffTokens(oldText, newText), [oldText, newText]);
+  const tokensA = useMemo(() => tokenizeWords(left), [left]);
+  const tokensB = useMemo(() => tokenizeWords(right), [right]);
 
-  const adds = useMemo(
+  const ops = useMemo<Op[]>(
+    () => lcsDiff(tokensA, tokensB),
+    [tokensA, tokensB]
+  );
+
+  // Stats (Zeichen, nicht nur Tokens)
+  const addsChars = useMemo(
     () =>
       ops
         .filter((o) => o.type === "add")
-        .reduce((n, o) => n + o.text.length, 0),
+        .reduce(
+          (acc, o) => acc + o.tokens.reduce((a, t) => a + t.length, 0),
+          0
+        ),
     [ops]
   );
-  const removes = useMemo(
+  const removesChars = useMemo(
     () =>
       ops
         .filter((o) => o.type === "remove")
-        .reduce((n, o) => n + o.text.length, 0),
+        .reduce(
+          (acc, o) => acc + o.tokens.reduce((a, t) => a + t.length, 0),
+          0
+        ),
     [ops]
   );
 
-  function swap() {
-    setOldText(newText);
-    setNewText(oldText);
-  }
-  function clearBoth() {
-    setOldText("");
-    setNewText("");
-  }
+  const swap = () => {
+    setLeft(right);
+    setRight(left);
+  };
+  const clearBoth = () => {
+    setLeft("");
+    setRight("");
+  };
 
   return (
     <>
@@ -99,71 +130,62 @@ export default function DiffChecker() {
           content="Compare two texts and highlight differences (adds/removes) live."
         />
       </Head>
+
       <main>
-        <Navbar isSubPage title="Diff" />
+        <Navbar isSubPage title="Difference Checker" />
 
-        <section className="wrap">
-          <div className="card">
-            <header className="cardHeader">
-              <h1>Diff Checker</h1>
-              <p className="muted">
-                Paste two texts to see additions and removals highlighted.
-              </p>
-            </header>
+        <div className="diffCheckerWrap">
+          <div className="inputs">
+            <textarea
+              rows={8}
+              value={left}
+              onChange={(e) => setLeft(e.target.value)}
+              placeholder="Paste original text…"
+            />
 
-            <div className="inputs">
-              <label className="col">
-                <span className="lbl">Original</span>
-                <textarea
-                  rows={8}
-                  value={oldText}
-                  onChange={(e) => setOldText(e.target.value)}
-                  placeholder="Paste original text…"
-                />
-              </label>
-
-              <label className="col">
-                <span className="lbl">Modified</span>
-                <textarea
-                  rows={8}
-                  value={newText}
-                  onChange={(e) => setNewText(e.target.value)}
-                  placeholder="Paste modified text…"
-                />
-              </label>
-            </div>
-
-            <div className="actions">
-              <button className="btn" onClick={swap}>
-                Swap
-              </button>
-              <button className="btn secondary" onClick={clearBoth}>
-                Clear
-              </button>
-              <div className="spacer" />
-              <span className="muted small">
-                +{adds} / −{removes} chars
-              </span>
-            </div>
-
-            <div className="diff">
-              {ops.map((op, i) => {
-                if (op.type === "equal") return <span key={i}>{op.text}</span>;
-                if (op.type === "add")
-                  return (
-                    <mark key={i} className="add">
-                      {op.text}
-                    </mark>
-                  );
-                return (
-                  <span key={i} className="del">
-                    {op.text}
-                  </span>
-                );
-              })}
-            </div>
+            <textarea
+              rows={8}
+              value={right}
+              onChange={(e) => setRight(e.target.value)}
+              placeholder="Paste modified text…"
+            />
           </div>
-        </section>
+
+          <div className="actions">
+            <button className="btn" onClick={swap}>
+              <FaArrowRightArrowLeft />
+            </button>
+            <button className="btn secondary" onClick={clearBoth}>
+              <FaEraser />
+            </button>
+            <span>
+              +{addsChars} / −{removesChars} chars
+            </span>
+          </div>
+
+          <div className="diff">
+            {ops.length === 0 && (
+              <p className="muted">Enter text to see the diff.</p>
+            )}
+            {ops.map((op, i) => {
+              const text = op.tokens.join("");
+              if (!text) return null;
+              const content = renderWithBreaks(text);
+              if (op.type === "equal") return <span key={i}>{content}</span>;
+              if (op.type === "add")
+                return (
+                  <mark key={i} className="add">
+                    {content}
+                  </mark>
+                );
+              return (
+                <span key={i} className="del">
+                  {content}
+                </span>
+              );
+            })}
+          </div>
+        </div>
       </main>
     </>
   );

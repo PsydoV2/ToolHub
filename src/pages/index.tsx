@@ -30,7 +30,7 @@ export default function Home() {
             toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
             toolName="Diff Checker"
             toolLink="/diffChecker"
-            toolIconUrl="/ToolIcons/pngtopdf.svg"
+            toolIconUrl="/ToolIcons/diffChecker.svg"
             toolImageUrl="/ToolHeaders/pngtopdf.png"
             isNew
           ></ToolItem>
