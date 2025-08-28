@@ -713,8 +713,10 @@ nav button:hover {
 
 .diffCheckerWrap .diff .add {
   background-color: #d4f8d4;
+  color: black;
 }
 
 .diffCheckerWrap .diff .del {
   background-color: #f8d4d4;
+  color: black;
 }
