@@ -25,6 +25,13 @@ export default function Home() {
             toolLink="/uuid"
             toolIconUrl="/ToolIcons/uuid.svg"
             toolImageUrl="/ToolHeaders/uuid.png"
+          ></ToolItem>
+          <ToolItem
+            toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
+            toolName="Diff Checker"
+            toolLink="/diffChecker"
+            toolIconUrl="/ToolIcons/pngtopdf.svg"
+            toolImageUrl="/ToolHeaders/pngtopdf.png"
             isNew
           ></ToolItem>
           <ToolItem

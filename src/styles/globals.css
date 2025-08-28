@@ -631,3 +631,111 @@ nav button:hover {
   gap: 0.5rem;
   font-size: 1.2rem;
 }
+
+/* ----------------------------------------- */
+
+.wrap {
+  display: grid;
+  place-items: start center;
+  padding: 2rem 1rem 4rem;
+}
+.card {
+  width: 100%;
+  max-width: 960px;
+  background: #0b1220;
+  border: 1px solid #1b2742;
+  border-radius: 16px;
+  padding: 1.25rem;
+  color: #e7eff6;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.cardHeader h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+.muted {
+  color: #a4b1c9;
+  margin: 0;
+}
+.small {
+  font-size: 0.85rem;
+}
+
+.inputs {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+.col {
+  display: grid;
+  gap: 0.5rem;
+}
+.lbl {
+  font-weight: 600;
+  color: #cbd6e6;
+}
+textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #24304c;
+  background: #0e182b;
+  color: #e7eff6;
+  padding: 0.9rem 1rem;
+  font: 600 1rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  resize: vertical;
+  min-height: 180px;
+}
+
+.actions {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: start;
+  margin: 0.75rem 0 0.25rem;
+}
+.spacer {
+  width: 1px;
+  flex: 1 1 auto;
+}
+.btn {
+  padding: 0.6rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid #2b3b61;
+  background: #13203a;
+  color: #e7eff6;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #172647;
+}
+.btn.secondary {
+  background: #0f1a31;
+}
+
+.diff {
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-top: 0.25rem;
+  line-height: 1.6;
+}
+.add {
+  background: rgba(46, 160, 67, 0.28);
+  padding: 0 0.06em;
+  border-radius: 0.2em;
+}
+.del {
+  background: rgba(248, 81, 73, 0.22);
+  text-decoration: line-through;
+  padding: 0 0.06em;
+  border-radius: 0.2em;
+}
+
+@media (max-width: 720px) {
+  .inputs {
+    grid-template-columns: 1fr;
+  }
+}
