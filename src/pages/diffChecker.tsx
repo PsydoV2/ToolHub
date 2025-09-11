@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { ReactNode, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { FaArrowRightArrowLeft, FaEraser } from "react-icons/fa6";
 
@@ -8,15 +8,14 @@ type Op = { type: OpType; tokens: string[] };
 
 // --- Utilities -------------------------------------------------------------
 
-function tokenizeWords(s: string): string[] {
-  const text = (s ?? "").trim();
-  if (!text) return [];
-  return text
-    .replace(/(\r\n|\r|\n)/g, " \n ")
-    .split(/(\s+|[.,;:!?()"'`´„“”\[\]{}<>])/)
-    .filter((t) => t && !/^\s+$/.test(t));
+// Zeichenweise Tokenisierung (inkl. Leerzeichen und \n)
+function tokenizeChars(s: string): string[] {
+  if (s == null) return [];
+  // Array.from bewahrt Surrogate-Pairs korrekt (Emoji etc.)
+  return Array.from(s);
 }
 
+// LCS-Diff (unverändert, arbeitet jetzt auf Zeichenbasis)
 function lcsDiff(a: string[], b: string[]): Op[] {
   const n = a.length;
   const m = b.length;
@@ -66,49 +65,33 @@ function lcsDiff(a: string[], b: string[]): Op[] {
   return ops;
 }
 
-function renderWithBreaks(text: string) {
-  const parts = text.split("\n");
-  const out: (string | ReactNode)[] = [];
-  parts.forEach((p, idx) => {
-    out.push(p);
-    if (idx < parts.length - 1) out.push(<br key={`br-${idx}`} />);
-  });
-  return out;
-}
-
 // --- Component -------------------------------------------------------------
 
 export default function DiffChecker() {
   const [left, setLeft] = useState<string>("");
   const [right, setRight] = useState<string>("");
 
-  const tokensA = useMemo(() => tokenizeWords(left), [left]);
-  const tokensB = useMemo(() => tokenizeWords(right), [right]);
+  const tokensA = useMemo(() => tokenizeChars(left), [left]);
+  const tokensB = useMemo(() => tokenizeChars(right), [right]);
 
   const ops = useMemo<Op[]>(
     () => lcsDiff(tokensA, tokensB),
     [tokensA, tokensB]
   );
 
-  // Stats (Zeichen, nicht nur Tokens)
+  // Stats (Zeichen)
   const addsChars = useMemo(
     () =>
       ops
         .filter((o) => o.type === "add")
-        .reduce(
-          (acc, o) => acc + o.tokens.reduce((a, t) => a + t.length, 0),
-          0
-        ),
+        .reduce((acc, o) => acc + o.tokens.length, 0),
     [ops]
   );
   const removesChars = useMemo(
     () =>
       ops
         .filter((o) => o.type === "remove")
-        .reduce(
-          (acc, o) => acc + o.tokens.reduce((a, t) => a + t.length, 0),
-          0
-        ),
+        .reduce((acc, o) => acc + o.tokens.length, 0),
     [ops]
   );
 
@@ -152,10 +135,14 @@ export default function DiffChecker() {
           </div>
 
           <div className="actions">
-            <button className="btn" onClick={swap}>
+            <button className="btn" onClick={swap} aria-label="Swap">
               <FaArrowRightArrowLeft />
             </button>
-            <button className="btn secondary" onClick={clearBoth}>
+            <button
+              className="btn secondary"
+              onClick={clearBoth}
+              aria-label="Clear both"
+            >
               <FaEraser />
             </button>
             <span>
@@ -163,6 +150,7 @@ export default function DiffChecker() {
             </span>
           </div>
 
+          {/* white-space: pre-wrap übernimmt Leerzeichen & Zeilenumbrüche */}
           <div className="diff">
             {ops.length === 0 && (
               <p className="muted">Enter text to see the diff.</p>
@@ -170,17 +158,16 @@ export default function DiffChecker() {
             {ops.map((op, i) => {
               const text = op.tokens.join("");
               if (!text) return null;
-              const content = renderWithBreaks(text);
-              if (op.type === "equal") return <span key={i}>{content}</span>;
+              if (op.type === "equal") return <span key={i}>{text}</span>;
               if (op.type === "add")
                 return (
                   <mark key={i} className="add">
-                    {content}
+                    {text}
                   </mark>
                 );
               return (
                 <span key={i} className="del">
-                  {content}
+                  {text}
                 </span>
               );
             })}

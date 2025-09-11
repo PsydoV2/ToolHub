@@ -721,6 +721,23 @@ nav button:hover {
   color: black;
 }
 
+.diffCheckerWrap .diff,
+.diffCheckerWrap .diff .add,
+.diffCheckerWrap .diff .del {
+  white-space: pre-wrap; /* erhält \n und mehrere Spaces */
+  word-break: break-word; /* lange Wortketten umbrechen */
+}
+
+.diffCheckerWrap .diff .add {
+  /* <mark> hat bereits Hintergrund; optional stärker umranden */
+  padding: 0 0.05rem;
+}
+
+.diffCheckerWrap .diff .del {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
 /*  */
 
 .gpxcard {

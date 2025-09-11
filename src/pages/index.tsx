@@ -17,14 +17,14 @@ export default function Home() {
             toolName="Passwordgenerator"
             toolLink="/password"
             toolIconUrl="/ToolIcons/password.svg"
-            toolImageUrl="/ToolHeaders/password.png"
+            toolImageUrl=""
           ></ToolItem>
           <ToolItem
             toolDescription="Instantly generate RFC 4122 UUIDs — copy-ready, offline."
             toolName="UUID Generator"
             toolLink="/uuid"
             toolIconUrl="/ToolIcons/uuid.svg"
-            toolImageUrl="/ToolHeaders/uuid.png"
+            toolImageUrl=""
           ></ToolItem>
           <ToolItem
             toolDescription="Diff Checker is a fast, privacy-friendly tool to compare two texts and instantly highlight additions and deletions with word-level diffs."
@@ -47,7 +47,7 @@ export default function Home() {
             toolName="PNG to PDF"
             toolLink="/pngtopdf"
             toolIconUrl="/ToolIcons/pngtopdf.svg"
-            toolImageUrl="/ToolHeaders/pngtopdf.png"
+            toolImageUrl=""
             isWorkInProgress
           ></ToolItem>
         </div>
