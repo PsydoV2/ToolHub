@@ -35,7 +35,7 @@ export default function Home() {
             isNew
           ></ToolItem>
           <ToolItem
-            toolDescription=""
+            toolDescription="Merge multiple GPX files client-side—keeps POIs, tracks, routes; recalculates bounds; one click to download."
             toolName="GPX Merge"
             toolLink="/gpxmerge"
             toolIconUrl="/ToolIcons/gpxmerge.svg"
