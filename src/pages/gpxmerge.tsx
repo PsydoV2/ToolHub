@@ -175,9 +175,13 @@ export default function GpxMerge() {
 
       setCounts(counts);
       setResult(xml);
-    } catch (e: any) {
+    } catch (e) {
       console.error(e);
-      setError(e?.message || "Merging failed.");
+
+      if (e instanceof ReferenceError) {
+        setError(e?.message);
+      }
+      setError("Merging failed.");
     } finally {
       setBusy(false);
     }
