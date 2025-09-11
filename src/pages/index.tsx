@@ -35,6 +35,14 @@ export default function Home() {
             isNew
           ></ToolItem>
           <ToolItem
+            toolDescription=""
+            toolName="GPX Merge"
+            toolLink="/gpxmerge"
+            toolIconUrl="/ToolIcons/gpxmerge.svg"
+            toolImageUrl=""
+            isNew
+          ></ToolItem>
+          <ToolItem
             toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
             toolName="PNG to PDF"
             toolLink="/pngtopdf"
