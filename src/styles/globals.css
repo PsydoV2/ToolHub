@@ -891,6 +891,7 @@ nav button:hover {
   background: var(--background-100);
   border-top: 1px solid var(--background-200);
   color: var(--text-700);
+  margin-top: 100px;
 }
 
 .footWrap {
