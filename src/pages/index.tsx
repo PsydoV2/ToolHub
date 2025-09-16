@@ -15,38 +15,45 @@ export default function Home() {
           <ToolItem
             toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
             toolName="Passwordgenerator"
-            toolLink="/password"
+            toolLink="/tools/password"
             toolIconUrl="/ToolIcons/password.svg"
             toolImageUrl=""
           ></ToolItem>
           <ToolItem
             toolDescription="Instantly generate RFC 4122 UUIDs — copy-ready, offline."
             toolName="UUID Generator"
-            toolLink="/uuid"
+            toolLink="/tools/uuid"
             toolIconUrl="/ToolIcons/uuid.svg"
             toolImageUrl=""
           ></ToolItem>
           <ToolItem
             toolDescription="Diff Checker is a fast, privacy-friendly tool to compare two texts and instantly highlight additions and deletions with word-level diffs."
             toolName="Diff Checker"
-            toolLink="/diffChecker"
+            toolLink="/tools/diffChecker"
             toolIconUrl="/ToolIcons/diffChecker.svg"
             toolImageUrl=""
-            isNew
           ></ToolItem>
           <ToolItem
             toolDescription="Merge multiple GPX files client-side—keeps POIs, tracks, routes; recalculates bounds; one click to download."
             toolName="GPX Merge"
-            toolLink="/gpxmerge"
+            toolLink="/tools/gpxmerge"
             toolIconUrl="/ToolIcons/gpxmerge.svg"
             toolImageUrl=""
             isNew
           ></ToolItem>
           <ToolItem
-            toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
-            toolName="PNG to PDF"
-            toolLink="/pngtopdf"
+            toolDescription=""
+            toolName="Image to PDF"
+            toolLink="/tools/imgtopdf"
             toolIconUrl="/ToolIcons/pngtopdf.svg"
+            toolImageUrl=""
+            isWorkInProgress
+          ></ToolItem>
+          <ToolItem
+            toolDescription=""
+            toolName="PDF Password removal"
+            toolLink="/tools/pdfpasswordremoval"
+            toolIconUrl="/ToolIcons/pdfpasswordremoval.svg"
             toolImageUrl=""
             isWorkInProgress
           ></ToolItem>
