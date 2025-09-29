@@ -171,7 +171,7 @@ a {
   display: none;
 }
 
-/* ----------------------------------------- */
+/* ----------- Navbar ----------- */
 
 nav {
   width: 100%;
@@ -238,7 +238,7 @@ nav button:hover {
   color: var(--accent-600);
 }
 
-/* ----------------------------------------- */
+/* ----------- Wrapper ----------- */
 
 .toolWrapper {
   width: 100%;
@@ -252,7 +252,7 @@ nav button:hover {
   justify-content: center;
 }
 
-/* ----------------------------------------- */
+/* ----------- ToolItem ----------- */
 
 .toolItem {
   width: 300px;
@@ -395,7 +395,7 @@ nav button:hover {
   background-color: var(--primary-500);
 }
 
-/* ----------------------------------------- */
+/* ----------- Password ----------- */
 
 .passwordCard {
   width: 95%;
@@ -525,7 +525,7 @@ nav button:hover {
   font-size: 1.2rem;
 }
 
-/* ----------------------------------------- */
+/* ----------- UUID ----------- */
 
 .uuidCard {
   width: 100%;
@@ -632,7 +632,7 @@ nav button:hover {
   font-size: 1.2rem;
 }
 
-/* ----------------------------------------- */
+/* ----------- Diff Checker ----------- */
 
 .diffCheckerWrap {
   display: flex;
@@ -883,7 +883,7 @@ nav button:hover {
   text-align: center;
 }
 
-/* ----------------------------------------- */
+/* ----------- Footer ----------- */
 
 /* Footer.css (oder globals.css / module) */
 .footer {
@@ -968,4 +968,101 @@ nav button:hover {
   }
 }
 
-/* ----------------------------------------- */
+/* ----------- Hash ----------- */
+
+.hashCard {
+  width: 100%;
+  max-width: 600px;
+  padding: 1.25rem;
+  color: var(--text-900);
+  margin: auto;
+}
+
+.hashControls {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
+}
+
+.hashControls button {
+  padding: 0.7rem 0.9rem;
+  border: none;
+  background: transparent;
+  color: var(--text-950);
+  background-color: var(--background-200);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hashAlgoCtrl select {
+  padding: 0.7rem 0.9rem;
+  border: none;
+  outline: 0;
+  background: transparent;
+  color: var(--text-950);
+  background-color: var(--background-200);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+}
+
+.hashOutCtrl select {
+  padding: 0.7rem 0.9rem;
+  border: none;
+  outline: 0;
+  background: transparent;
+  color: var(--text-950);
+  background-color: var(--background-200);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+}
+
+.hashUpCtrl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  display: none;
+}
+
+.hashUpCtrl input {
+  height: 40px;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: var(--background-200);
+  cursor: pointer;
+  appearance: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hashUpCtrl input:checked {
+  background-color: var(--accent-500);
+}
+
+.hashUpCtrl input::after {
+  content: "";
+  width: 10px;
+  height: 20px;
+  border-right: 3px solid white;
+  border-bottom: 3px solid white;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.15s ease-in-out;
+  margin-bottom: 5px;
+}
+
+.hashUpCtrl input:checked::after {
+  transform: rotate(45deg) scale(1);
+}
