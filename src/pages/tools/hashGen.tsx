@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import { MdAbc, MdOutlineFilePresent } from "react-icons/md";
 import { motion } from "framer-motion";
+import { FaArrowsRotate, FaCopy } from "react-icons/fa6";
 
 type Algo = "MD5" | "SHA-1" | "SHA-256" | "SHA-384" | "SHA-512";
 type Encoding = "hex" | "base64";
@@ -169,32 +170,33 @@ export default function HashTool() {
 
           {mode === "text" ? (
             <section className="panel">
-              <label className="col">
-                <span className="lbl">Input</span>
-                <textarea
-                  rows={6}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Type or paste text…"
-                />
-              </label>
+              <textarea
+                rows={6}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type or paste text…"
+              />
 
-              <label className="col">
-                <span className="lbl">Hash</span>
-                <textarea rows={3} readOnly value={textHash} />
-              </label>
+              <textarea rows={3} readOnly value={textHash} />
 
               <div className="actions">
-                <button className="btn" onClick={hashTextNow}>
-                  Recompute
-                </button>
-                <button
-                  className="btn secondary"
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  onClick={hashTextNow}
+                >
+                  <FaArrowsRotate />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
                   onClick={() => copy(textHash)}
                   disabled={!textHash}
                 >
-                  Copy
-                </button>
+                  <FaCopy />
+                </motion.button>
               </div>
             </section>
           ) : (

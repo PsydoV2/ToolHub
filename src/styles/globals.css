@@ -1066,3 +1066,62 @@ nav button:hover {
 .hashUpCtrl input:checked::after {
   transform: rotate(45deg) scale(1);
 }
+
+.hashControls .active {
+  background-color: var(--background-300);
+}
+
+.warn {
+  width: 500px;
+  text-align: center;
+  margin: auto;
+  color: black;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+
+  background-color: lightcoral;
+  outline: 1px solid red;
+  border-radius: 5px;
+  padding: 1rem 0;
+}
+
+.hashCard .panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hashCard .panel textarea {
+  border-radius: 5px;
+  outline: 0;
+  border: 0;
+  background-color: var(--background-200);
+  color: var(--text-900);
+  padding: 1rem;
+}
+
+.hashCard .panel textarea::placeholder {
+  color: var(--text-700);
+}
+
+.hashCard .panel .actions {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.hashCard .panel .actions button {
+  padding: 0.7rem 0.9rem;
+  border: none;
+  background: transparent;
+  color: var(--text-950);
+  background-color: var(--background-200);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
