@@ -39,10 +39,9 @@ export default function Home() {
             toolLink="/tools/gpxmerge"
             toolIconUrl="/ToolIcons/gpxmerge.svg"
             toolImageUrl=""
-            isNew
           ></ToolItem>
           <ToolItem
-            toolDescription="Merge multiple GPX files client-side—keeps POIs, tracks, routes; recalculates bounds; one click to download."
+            toolDescription="Client-side file hashing—supports SHA-256/512, SHA-1, MD5"
             toolName="Hasher"
             toolLink="/tools/hashGen"
             toolIconUrl="/ToolIcons/gpxmerge.svg"
