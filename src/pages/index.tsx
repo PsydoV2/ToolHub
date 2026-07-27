@@ -13,9 +13,12 @@ interface Tool {
   icon: string;
   image?: string;
   tags: string[];
+  category: string;
   isNew?: boolean;
   isWorkInProgress?: boolean;
 }
+
+const CATEGORY_ORDER = ["Generators", "Text & Dev", "Files & Images", "Design"];
 
 const TOOLS: Tool[] = [
   {
@@ -25,6 +28,7 @@ const TOOLS: Tool[] = [
     link: "/tools/password",
     icon: "/ToolIcons/password.svg",
     tags: ["security", "generator"],
+    category: "Generators",
   },
   {
     name: "UUID Generator",
@@ -32,6 +36,17 @@ const TOOLS: Tool[] = [
     link: "/tools/uuid",
     icon: "/ToolIcons/uuid.svg",
     tags: ["generator", "dev"],
+    category: "Generators",
+  },
+  {
+    name: "QR Code",
+    description:
+      "Generate QR codes from text or URLs, and scan QR codes from images — entirely offline.",
+    link: "/tools/qrcode",
+    icon: "/ToolIcons/qrcode.svg",
+    tags: ["generator", "encoding", "dev"],
+    category: "Generators",
+    isNew: true,
   },
   {
     name: "Diff Checker",
@@ -40,21 +55,7 @@ const TOOLS: Tool[] = [
     link: "/tools/diffChecker",
     icon: "/ToolIcons/diffChecker.svg",
     tags: ["text", "dev"],
-  },
-  {
-    name: "GPX Merge",
-    description:
-      "Merge multiple GPX files client-side—keeps POIs, tracks, routes; recalculates bounds; one click to download.",
-    link: "/tools/gpxmerge",
-    icon: "/ToolIcons/gpxmerge.svg",
-    tags: ["files", "geo"],
-  },
-  {
-    name: "Hasher",
-    description: "Client-side file hashing—supports SHA-256/512, SHA-1, MD5",
-    link: "/tools/hashGen",
-    icon: "/ToolIcons/hashGen.svg",
-    tags: ["security", "files", "dev"],
+    category: "Text & Dev",
   },
   {
     name: "Base64",
@@ -63,7 +64,7 @@ const TOOLS: Tool[] = [
     link: "/tools/base64",
     icon: "/ToolIcons/base64.svg",
     tags: ["dev", "text", "encoding"],
-    isNew: true,
+    category: "Text & Dev",
   },
   {
     name: "JSON Formatter",
@@ -72,7 +73,7 @@ const TOOLS: Tool[] = [
     link: "/tools/jsonFormatter",
     icon: "/ToolIcons/jsonFormatter.svg",
     tags: ["dev", "text"],
-    isNew: true,
+    category: "Text & Dev",
   },
   {
     name: "Text Case Converter",
@@ -81,15 +82,64 @@ const TOOLS: Tool[] = [
     link: "/tools/textCase",
     icon: "/ToolIcons/textCase.svg",
     tags: ["text"],
+    category: "Text & Dev",
+  },
+  {
+    name: "Regex Tester",
+    description:
+      "Test regular expressions against sample text with live match highlighting and group capture.",
+    link: "/tools/regexTester",
+    icon: "/ToolIcons/regexTester.svg",
+    tags: ["dev", "text"],
+    category: "Text & Dev",
     isNew: true,
   },
   {
-    name: "Color Converter",
-    description: "Convert colors between HEX, RGB and HSL.",
-    link: "/tools/colorConverter",
-    icon: "/ToolIcons/colorConverter.svg",
-    tags: ["design", "dev"],
+    name: "JWT Decoder",
+    description:
+      "Decode JSON Web Token headers and payloads locally. Signatures are never verified or sent anywhere.",
+    link: "/tools/jwtDecoder",
+    icon: "/ToolIcons/jwtDecoder.svg",
+    tags: ["dev", "encoding", "security"],
+    category: "Text & Dev",
     isNew: true,
+  },
+  {
+    name: "Markdown Converter",
+    description:
+      "Convert Markdown to HTML with a live preview, or HTML back to Markdown.",
+    link: "/tools/markdown",
+    icon: "/ToolIcons/markdown.svg",
+    tags: ["dev", "text"],
+    category: "Text & Dev",
+    isNew: true,
+  },
+  {
+    name: "Timestamp Converter",
+    description:
+      "Convert Unix epoch timestamps to human-readable dates and back, with a live clock.",
+    link: "/tools/timestamp",
+    icon: "/ToolIcons/timestamp.svg",
+    tags: ["dev", "time"],
+    category: "Text & Dev",
+    isNew: true,
+  },
+  {
+    name: "Hasher",
+    description: "Client-side file hashing—supports SHA-256/512, SHA-1, MD5",
+    link: "/tools/hashGen",
+    icon: "/ToolIcons/hashGen.svg",
+    tags: ["security", "files", "dev"],
+    category: "Files & Images",
+  },
+  {
+    name: "GPX Merge",
+    description:
+      "Merge multiple GPX files client-side—keeps POIs, tracks, routes; recalculates bounds; one click to download.",
+    link: "/tools/gpxmerge",
+    icon: "/ToolIcons/gpxmerge.svg",
+    tags: ["files", "geo"],
+    category: "Files & Images",
   },
   {
     name: "Image to PDF",
@@ -97,6 +147,7 @@ const TOOLS: Tool[] = [
     link: "/tools/imgtopdf",
     icon: "/ToolIcons/pngtopdf.svg",
     tags: ["files", "pdf"],
+    category: "Files & Images",
     isWorkInProgress: true,
   },
   {
@@ -106,7 +157,35 @@ const TOOLS: Tool[] = [
     link: "/tools/pdfpasswordremoval",
     icon: "/ToolIcons/pdfpasswordremoval.svg",
     tags: ["files", "pdf", "security"],
+    category: "Files & Images",
+  },
+  {
+    name: "EXIF Viewer & Remover",
+    description:
+      "View hidden EXIF metadata in your photos — including GPS location — and strip it before sharing.",
+    link: "/tools/exifRemover",
+    icon: "/ToolIcons/exifRemover.svg",
+    tags: ["files", "security", "images"],
+    category: "Files & Images",
     isNew: true,
+  },
+  {
+    name: "Image Compressor",
+    description:
+      "Resize and compress images with instant before/after size comparison and a live preview.",
+    link: "/tools/imageCompressor",
+    icon: "/ToolIcons/imageCompressor.svg",
+    tags: ["files", "images"],
+    category: "Files & Images",
+    isNew: true,
+  },
+  {
+    name: "Color Converter",
+    description: "Convert colors between HEX, RGB and HSL.",
+    link: "/tools/colorConverter",
+    icon: "/ToolIcons/colorConverter.svg",
+    tags: ["design", "dev"],
+    category: "Design",
   },
 ];
 
@@ -121,6 +200,19 @@ export default function Home() {
       activeTags.some((tag) => tool.tags.includes(tag))
     );
   }, [activeTags]);
+
+  const groupedTools = useMemo(() => {
+    const groups = new Map<string, Tool[]>();
+    for (const tool of filteredTools) {
+      const bucket = groups.get(tool.category) ?? [];
+      bucket.push(tool);
+      groups.set(tool.category, bucket);
+    }
+    return CATEGORY_ORDER.map((category) => ({
+      category,
+      tools: groups.get(category) ?? [],
+    })).filter((group) => group.tools.length > 0);
+  }, [filteredTools]);
 
   function toggleTag(tag: string) {
     setActiveTags((current) =>
@@ -183,35 +275,42 @@ export default function Home() {
           )}
         </div>
 
-        <div className="toolWrapper">
-          <AnimatePresence mode="popLayout">
-            {filteredTools.map((tool) => (
-              <motion.div
-                key={tool.link}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.2 }}
-              >
-                <ToolItem
-                  toolDescription={tool.description}
-                  toolName={tool.name}
-                  toolLink={tool.link}
-                  toolIconUrl={tool.icon}
-                  toolImageUrl={tool.image ?? ""}
-                  tags={tool.tags}
-                  isNew={tool.isNew}
-                  isWorkInProgress={tool.isWorkInProgress}
-                ></ToolItem>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+        {groupedTools.map((group) => (
+          <section className="toolSection" key={group.category}>
+            {activeTags.length === 0 && (
+              <h2 className="toolSectionTitle">{group.category}</h2>
+            )}
+            <div className="toolWrapper">
+              <AnimatePresence mode="popLayout">
+                {group.tools.map((tool) => (
+                  <motion.div
+                    key={tool.link}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ToolItem
+                      toolDescription={tool.description}
+                      toolName={tool.name}
+                      toolLink={tool.link}
+                      toolIconUrl={tool.icon}
+                      toolImageUrl={tool.image ?? ""}
+                      tags={tool.tags}
+                      isNew={tool.isNew}
+                      isWorkInProgress={tool.isWorkInProgress}
+                    ></ToolItem>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </section>
+        ))}
 
-          {filteredTools.length === 0 && (
-            <p className="noResults">No tools match the selected tags.</p>
-          )}
-        </div>
+        {filteredTools.length === 0 && (
+          <p className="noResults">No tools match the selected tags.</p>
+        )}
       </main>
     </>
   );
