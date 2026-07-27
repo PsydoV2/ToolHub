@@ -100,12 +100,13 @@ const TOOLS: Tool[] = [
     isWorkInProgress: true,
   },
   {
-    name: "PDF Password removal",
-    description: "",
+    name: "PDF Password Removal",
+    description:
+      "Remove a password or permission lock from a PDF, entirely in your browser — supports RC4, AES-128 and AES-256.",
     link: "/tools/pdfpasswordremoval",
     icon: "/ToolIcons/pdfpasswordremoval.svg",
     tags: ["files", "pdf", "security"],
-    isWorkInProgress: true,
+    isNew: true,
   },
 ];
 

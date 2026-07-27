@@ -1002,6 +1002,67 @@ div.toolItem[aria-disabled="true"] {
   resize: none;
 }
 
+.pdfNote {
+  text-align: center;
+  color: var(--text-700);
+  font-size: 0.95rem;
+  line-height: 1.5rem;
+  margin-top: 1rem;
+}
+
+.pdfLimits {
+  font-size: 0.8rem;
+  color: var(--text-500);
+  margin-top: 2rem;
+}
+
+.pdfPasswordForm {
+  margin-top: 1rem;
+}
+
+.pdfPasswordRow {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.pdfPasswordRow input[type="password"] {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--background-200);
+  color: var(--text-950);
+  font-size: 1rem;
+}
+
+.pdfPasswordRow button {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  background-color: var(--accent-500);
+  color: var(--text-50);
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 0.5rem;
+}
+
+.pdfPasswordRow button:disabled {
+  background-color: var(--background-300);
+  color: var(--text-600);
+  cursor: not-allowed;
+}
+
+.pdfDownloadBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  background-color: var(--secondary-500);
+  color: var(--text-50);
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
 .gpxcard .err {
   margin-top: 1rem;
   padding: 1rem;
