@@ -19,12 +19,10 @@ export default function Navbar(props: NavbarProps) {
   }, []);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    if (!isDarkMode) {
-      document.documentElement.dataset.theme = "dark";
-    } else {
-      document.documentElement.dataset.theme = "light";
-    }
+    const nextIsDark = !isDarkMode;
+    setIsDarkMode(nextIsDark);
+    document.documentElement.dataset.theme = nextIsDark ? "dark" : "light";
+    localStorage.setItem("theme", nextIsDark ? "dark" : "light");
   };
 
   return (
