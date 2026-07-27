@@ -125,6 +125,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  height: 100%;
 }
 
 body {
@@ -133,6 +134,20 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#__next main {
+  flex: 1 0 auto;
+}
+
+#__next .footer {
+  flex-shrink: 0;
 }
 
 * {
@@ -279,6 +294,54 @@ nav button:hover {
   line-height: 1.6rem;
 }
 
+/* ----------- Tag Filter Bar ----------- */
+
+.tagFilterBar {
+  width: 95%;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.tagChip {
+  border: 2px solid var(--background-200);
+  background-color: transparent;
+  color: var(--text-700);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.tagChip:hover {
+  border-color: var(--accent-300);
+}
+
+.tagChip.active {
+  background-color: var(--accent-500);
+  border-color: var(--accent-500);
+  color: var(--text-50);
+}
+
+.tagChip.clear {
+  border-color: var(--primary-300);
+  color: var(--primary-500);
+}
+
+.noResults {
+  width: 100%;
+  text-align: center;
+  color: var(--text-600);
+  padding: 2rem 0;
+}
+
 /* ----------- Wrapper ----------- */
 
 .toolWrapper {
@@ -297,7 +360,7 @@ nav button:hover {
 
 .toolItem {
   width: 300px;
-  height: 300px;
+  height: 340px;
   outline: 2px solid var(--text-200);
   border-radius: 1rem;
 
@@ -367,8 +430,27 @@ div.toolItem[aria-disabled="true"] {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5rem;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   font-family: "Roboto", sans-serif;
+}
+
+.toolItemTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin-bottom: 8px;
+}
+
+.toolItemTags li {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background-color: var(--accent-100);
+  color: var(--accent-700);
 }
 
 .toolItemGo {
@@ -1173,4 +1255,171 @@ div.toolItem[aria-disabled="true"] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* ----------- Base64 / JSON Formatter / Text Case ----------- */
+
+.base64Card {
+  width: 100%;
+  max-width: 700px;
+  padding: 1.25rem;
+  color: var(--text-900);
+  margin: auto;
+}
+
+.base64Card .panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.base64Card .panel textarea {
+  border-radius: 0.5rem;
+  outline: 0;
+  border: 0;
+  background-color: var(--background-200);
+  color: var(--text-900);
+  font: 600 1rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  padding: 1rem;
+  resize: vertical;
+}
+
+.base64Card .panel textarea::placeholder {
+  color: var(--text-700);
+}
+
+.base64Card .panel .actions {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.base64Card .panel .actions button {
+  padding: 0.7rem 0.9rem;
+  border: none;
+  background: transparent;
+  color: var(--text-950);
+  background-color: var(--background-200);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.base64Card .panel .actions button:disabled,
+.caseButtons button:disabled {
+  background-color: var(--background-300);
+  color: var(--text-600);
+  cursor: not-allowed;
+}
+
+.textStats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--background-200);
+  color: var(--text-950);
+  font: 600 0.95rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.caseButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.caseButtons button {
+  padding: 0.6rem 0.9rem;
+  border: none;
+  background-color: var(--background-200);
+  color: var(--text-950);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+}
+
+/* ----------- Color Converter ----------- */
+
+.colorCard {
+  width: 95%;
+  max-width: 500px;
+  padding: 1.25rem;
+  margin: auto;
+  color: var(--text-900);
+}
+
+.colorPickRow {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.colorPickRow input[type="color"] {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.colorHexInput {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--background-200);
+  color: var(--text-950);
+  font: 600 1.05rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.colorValues {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.colorValueRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--background-200);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+
+.colorValueLabel {
+  font-weight: 700;
+  width: 40px;
+  color: var(--text-700);
+}
+
+.colorValueField {
+  flex: 1;
+  font: 600 1rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--text-950);
+}
+
+.colorValueRow button {
+  border: none;
+  background: transparent;
+  color: var(--text-950);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.colorValueRow button:disabled {
+  color: var(--text-400);
+  cursor: not-allowed;
 }

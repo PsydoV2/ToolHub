@@ -12,6 +12,7 @@ interface ToolItemProps {
   toolImageUrl: string;
   toolIconUrl: string;
   toolLink: string;
+  tags?: string[];
   isWorkInProgress?: boolean;
   isNew?: boolean;
 }
@@ -47,6 +48,14 @@ export default function ToolItem(props: ToolItemProps) {
         <h2>{props.toolName}</h2>
 
         <p>{props.toolDescription}</p>
+
+        {props.tags && props.tags.length > 0 && (
+          <ul className="toolItemTags">
+            {props.tags.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+        )}
 
         <motion.span
           className="toolItemGo"

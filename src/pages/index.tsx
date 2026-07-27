@@ -1,8 +1,134 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import Navbar from "@/components/Navbar";
 import ToolItem from "@/components/ToolItem";
 import Head from "next/head";
+import { AnimatePresence, motion } from "framer-motion";
+
+interface Tool {
+  name: string;
+  description: string;
+  link: string;
+  icon: string;
+  image?: string;
+  tags: string[];
+  isNew?: boolean;
+  isWorkInProgress?: boolean;
+}
+
+const TOOLS: Tool[] = [
+  {
+    name: "Passwordgenerator",
+    description:
+      "Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy.",
+    link: "/tools/password",
+    icon: "/ToolIcons/password.svg",
+    tags: ["security", "generator"],
+  },
+  {
+    name: "UUID Generator",
+    description: "Instantly generate RFC 4122 UUIDs — copy-ready, offline.",
+    link: "/tools/uuid",
+    icon: "/ToolIcons/uuid.svg",
+    tags: ["generator", "dev"],
+  },
+  {
+    name: "Diff Checker",
+    description:
+      "Diff Checker is a fast, privacy-friendly tool to compare two texts and instantly highlight additions and deletions with word-level diffs.",
+    link: "/tools/diffChecker",
+    icon: "/ToolIcons/diffChecker.svg",
+    tags: ["text", "dev"],
+  },
+  {
+    name: "GPX Merge",
+    description:
+      "Merge multiple GPX files client-side—keeps POIs, tracks, routes; recalculates bounds; one click to download.",
+    link: "/tools/gpxmerge",
+    icon: "/ToolIcons/gpxmerge.svg",
+    tags: ["files", "geo"],
+  },
+  {
+    name: "Hasher",
+    description: "Client-side file hashing—supports SHA-256/512, SHA-1, MD5",
+    link: "/tools/hashGen",
+    icon: "/ToolIcons/hashGen.svg",
+    tags: ["security", "files", "dev"],
+  },
+  {
+    name: "Base64",
+    description:
+      "Encode and decode Base64 text instantly, entirely in your browser.",
+    link: "/tools/base64",
+    icon: "/ToolIcons/base64.svg",
+    tags: ["dev", "text", "encoding"],
+    isNew: true,
+  },
+  {
+    name: "JSON Formatter",
+    description:
+      "Format, validate and minify JSON with clear error messages.",
+    link: "/tools/jsonFormatter",
+    icon: "/ToolIcons/jsonFormatter.svg",
+    tags: ["dev", "text"],
+    isNew: true,
+  },
+  {
+    name: "Text Case Converter",
+    description:
+      "Switch between UPPERCASE, lowercase, Title Case, camelCase and more, plus word/character counts.",
+    link: "/tools/textCase",
+    icon: "/ToolIcons/textCase.svg",
+    tags: ["text"],
+    isNew: true,
+  },
+  {
+    name: "Color Converter",
+    description: "Convert colors between HEX, RGB and HSL.",
+    link: "/tools/colorConverter",
+    icon: "/ToolIcons/colorConverter.svg",
+    tags: ["design", "dev"],
+    isNew: true,
+  },
+  {
+    name: "Image to PDF",
+    description: "",
+    link: "/tools/imgtopdf",
+    icon: "/ToolIcons/pngtopdf.svg",
+    tags: ["files", "pdf"],
+    isWorkInProgress: true,
+  },
+  {
+    name: "PDF Password removal",
+    description: "",
+    link: "/tools/pdfpasswordremoval",
+    icon: "/ToolIcons/pdfpasswordremoval.svg",
+    tags: ["files", "pdf", "security"],
+    isWorkInProgress: true,
+  },
+];
+
+const ALL_TAGS = Array.from(new Set(TOOLS.flatMap((t) => t.tags))).sort();
 
 export default function Home() {
+  const [activeTags, setActiveTags] = useState<string[]>([]);
+
+  const filteredTools = useMemo(() => {
+    if (activeTags.length === 0) return TOOLS;
+    return TOOLS.filter((tool) =>
+      activeTags.some((tag) => tool.tags.includes(tag))
+    );
+  }, [activeTags]);
+
+  function toggleTag(tag: string) {
+    setActiveTags((current) =>
+      current.includes(tag)
+        ? current.filter((t) => t !== tag)
+        : [...current, tag]
+    );
+  }
+
   return (
     <>
       <Head>
@@ -30,59 +156,60 @@ export default function Home() {
           Free, client-side tools for everyday tasks. Everything runs
           locally in your browser — your files and data are never uploaded.
         </p>
+
+        <div
+          className="tagFilterBar"
+          role="group"
+          aria-label="Filter tools by tag"
+        >
+          {ALL_TAGS.map((tag) => (
+            <button
+              key={tag}
+              className={`tagChip${activeTags.includes(tag) ? " active" : ""}`}
+              aria-pressed={activeTags.includes(tag)}
+              onClick={() => toggleTag(tag)}
+            >
+              {tag}
+            </button>
+          ))}
+          {activeTags.length > 0 && (
+            <button
+              className="tagChip clear"
+              onClick={() => setActiveTags([])}
+            >
+              Clear filters
+            </button>
+          )}
+        </div>
+
         <div className="toolWrapper">
-          <ToolItem
-            toolDescription="Secure, customizable passwords on demand — local-only generation, strength feedback, one-click copy."
-            toolName="Passwordgenerator"
-            toolLink="/tools/password"
-            toolIconUrl="/ToolIcons/password.svg"
-            toolImageUrl=""
-          ></ToolItem>
-          <ToolItem
-            toolDescription="Instantly generate RFC 4122 UUIDs — copy-ready, offline."
-            toolName="UUID Generator"
-            toolLink="/tools/uuid"
-            toolIconUrl="/ToolIcons/uuid.svg"
-            toolImageUrl=""
-          ></ToolItem>
-          <ToolItem
-            toolDescription="Diff Checker is a fast, privacy-friendly tool to compare two texts and instantly highlight additions and deletions with word-level diffs."
-            toolName="Diff Checker"
-            toolLink="/tools/diffChecker"
-            toolIconUrl="/ToolIcons/diffChecker.svg"
-            toolImageUrl=""
-          ></ToolItem>
-          <ToolItem
-            toolDescription="Merge multiple GPX files client-side—keeps POIs, tracks, routes; recalculates bounds; one click to download."
-            toolName="GPX Merge"
-            toolLink="/tools/gpxmerge"
-            toolIconUrl="/ToolIcons/gpxmerge.svg"
-            toolImageUrl=""
-          ></ToolItem>
-          <ToolItem
-            toolDescription="Client-side file hashing—supports SHA-256/512, SHA-1, MD5"
-            toolName="Hasher"
-            toolLink="/tools/hashGen"
-            toolIconUrl="/ToolIcons/hashGen.svg"
-            toolImageUrl=""
-            isNew
-          ></ToolItem>
-          <ToolItem
-            toolDescription=""
-            toolName="Image to PDF"
-            toolLink="/tools/imgtopdf"
-            toolIconUrl="/ToolIcons/pngtopdf.svg"
-            toolImageUrl=""
-            isWorkInProgress
-          ></ToolItem>
-          <ToolItem
-            toolDescription=""
-            toolName="PDF Password removal"
-            toolLink="/tools/pdfpasswordremoval"
-            toolIconUrl="/ToolIcons/pdfpasswordremoval.svg"
-            toolImageUrl=""
-            isWorkInProgress
-          ></ToolItem>
+          <AnimatePresence mode="popLayout">
+            {filteredTools.map((tool) => (
+              <motion.div
+                key={tool.link}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ToolItem
+                  toolDescription={tool.description}
+                  toolName={tool.name}
+                  toolLink={tool.link}
+                  toolIconUrl={tool.icon}
+                  toolImageUrl={tool.image ?? ""}
+                  tags={tool.tags}
+                  isNew={tool.isNew}
+                  isWorkInProgress={tool.isWorkInProgress}
+                ></ToolItem>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+
+          {filteredTools.length === 0 && (
+            <p className="noResults">No tools match the selected tags.</p>
+          )}
         </div>
       </main>
     </>
