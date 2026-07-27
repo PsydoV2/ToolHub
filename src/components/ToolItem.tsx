@@ -17,8 +17,8 @@ interface ToolItemProps {
 }
 
 export default function ToolItem(props: ToolItemProps) {
-  return (
-    <div className="toolItem">
+  const content = (
+    <>
       {props.isWorkInProgress && (
         <div className="toolItemSoon">
           <LuConstruction />
@@ -32,7 +32,7 @@ export default function ToolItem(props: ToolItemProps) {
             width={200}
             height={100}
             src={props.toolImageUrl}
-            alt="Tool Header Image"
+            alt={`${props.toolName} preview`}
           ></Image>
         )}
       </div>
@@ -41,23 +41,41 @@ export default function ToolItem(props: ToolItemProps) {
           width={256}
           height={256}
           src={props.toolIconUrl}
-          alt="Tool Icon"
+          alt={`${props.toolName} icon`}
         ></Image>
 
         <h2>{props.toolName}</h2>
 
         <p>{props.toolDescription}</p>
 
-        <motion.button
+        <motion.span
+          className="toolItemGo"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          aria-hidden="true"
         >
-          <Link href={props.toolLink}>
-            <FaArrowRight />
-          </Link>
-        </motion.button>
+          <FaArrowRight />
+        </motion.span>
       </div>
-    </div>
+    </>
+  );
+
+  if (props.isWorkInProgress) {
+    return (
+      <div className="toolItem" aria-disabled="true">
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={props.toolLink}
+      className="toolItem"
+      aria-label={`Open ${props.toolName}`}
+    >
+      {content}
+    </Link>
   );
 }
