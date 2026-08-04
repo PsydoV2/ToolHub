@@ -41,7 +41,7 @@ const TOOLS: Tool[] = [
   {
     name: "QR Code",
     description:
-      "Generate QR codes from text or URLs, and scan QR codes from images — entirely offline.",
+      "Generate custom-colored QR codes with logos, adjustable size and error correction, export as PNG or SVG, and scan QR codes from images — entirely offline.",
     link: "/tools/qrcode",
     icon: "/ToolIcons/qrcode.svg",
     tags: ["generator", "encoding", "dev"],

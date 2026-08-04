@@ -1556,6 +1556,36 @@ div.toolItem[aria-disabled="true"] {
   color: var(--text-400);
 }
 
+.qrOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.qrColorRow {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.qrColorField {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.qrColorField input[type="color"] {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
 /* ----------- JWT Decoder ----------- */
 
 .jwtField {
