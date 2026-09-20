@@ -14,7 +14,7 @@
     "jsqr": "^1.4.0",
     "marked": "^18.0.7",
     "motion": "^12.23.12",
-    "next": "16.2.12",
+    "next": "16.3.5",
     "pdf-lib": "^1.17.1",
     "qrcode": "^1.5.4",
     "react": "19.1.0",
@@ -29,7 +29,7 @@
     "@types/react-dom": "^19",
     "@types/turndown": "^5.0.6",
     "eslint": "^9",
-    "eslint-config-next": "16.2.12",
+    "eslint-config-next": "16.3.5",
     "typescript": "^5"
   },
   "overrides": {
